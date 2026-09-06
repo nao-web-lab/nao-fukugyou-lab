@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://naofukugyou623-ux.github.io/nao-fukugyou-lab/sitemap.xml
