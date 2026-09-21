@@ -898,6 +898,29 @@ section { padding: 48px 0; }
   .platform-grid { grid-template-columns: 1fr; }
 }
 
+/* ---------- Server / two-item comparison cards (e.g. rental server ads) ---------- */
+.server-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px;
+  margin: 24px 0 30px;
+}
+.server-cards .service-feature { margin: 0; }
+.service-feature-media.server-banner {
+  background: var(--color-surface-alt);
+  padding: 24px;
+  flex-wrap: wrap;
+}
+.service-feature-media img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 6px 12px rgba(18,23,43,0.12);
+}
+@media (max-width: 680px) {
+  .server-cards { grid-template-columns: 1fr; }
+}
+
 .article-nav {
   max-width: 760px;
   margin: 30px auto 0;
