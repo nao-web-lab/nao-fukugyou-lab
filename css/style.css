@@ -1224,7 +1224,8 @@ section { padding: 48px 0; }
   transition: box-shadow .2s ease, transform .2s ease, border-color .2s ease;
 }
 .explore-card:hover { box-shadow: var(--shadow-md); transform: translateY(-3px); text-decoration: none; border-color: var(--color-primary); }
-.explore-card .explore-icon { font-size: 1.6rem; margin-bottom: 10px; display: block; }
+.explore-card .explore-icon { margin-bottom: 12px; display: block; }
+.explore-card .explore-icon-svg { width: 34px; height: 34px; display: block; }
 .explore-card h3 { font-size: 1rem; margin: 0 0 6px; color: var(--color-text); }
 .explore-card p { font-size: 0.86rem; color: var(--color-text-soft); margin: 0; }
 .explore-card.is-soon { opacity: 0.6; cursor: default; }
