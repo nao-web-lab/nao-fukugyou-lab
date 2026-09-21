@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>アフィリエイトLPをAIで自動生成する仕組み｜NAO WEB LABの取り組みを紹介｜NAOの副業ラボ</title>
+<meta name="description" content="アフィリエイトのLP（ランディングページ）制作は初心者にとって大きな壁です。その負担をAIで軽減する取り組みとして運営している「NAO WEB LAB」と、実際に自動生成・公開しているLPの実例を紹介します。">
+<link rel="canonical" href="https://nao-web-lab.github.io/nao-fukugyou-lab/articles/11-ai-lp-generation.html">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;700;900&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 rx=%2716%27 fill=%27%23ff6b35%27/%3E%3Ctext x=%2732%27 y=%2743%27 font-size=%2732%27 font-family=%27Arial, sans-serif%27 font-weight=%27700%27 fill=%27white%27 text-anchor=%27middle%27%3EN%3C/text%3E%3C/svg%3E">
+<meta property="og:title" content="アフィリエイトLPをAIで自動生成する仕組み｜NAO WEB LABの取り組みを紹介｜NAOの副業ラボ">
+<meta property="og:description" content="アフィリエイトのLP（ランディングページ）制作は初心者にとって大きな壁です。その負担をAIで軽減する取り組みとして運営している「NAO WEB LAB」と、実際に自動生成・公開しているLPの実例を紹介します。">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="NAOの副業ラボ">
+<meta property="og:url" content="https://nao-web-lab.github.io/nao-fukugyou-lab/articles/11-ai-lp-generation.html">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://nao-web-lab.github.io/nao-fukugyou-lab/"}, {"@type": "ListItem", "position": 2, "name": "記事一覧", "item": "https://nao-web-lab.github.io/nao-fukugyou-lab/articles.html"}, {"@type": "ListItem", "position": 3, "name": "アフィリエイトLPをAIで自動生成する仕組み｜NAO WEB LABの取り組みを紹介", "item": "https://nao-web-lab.github.io/nao-fukugyou-lab/articles/11-ai-lp-generation.html"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "アフィリエイトLPをAIで自動生成する仕組み｜NAO WEB LABの取り組みを紹介", "description": "アフィリエイトのLP（ランディングページ）制作は初心者にとって大きな壁です。その負担をAIで軽減する取り組みとして運営している「NAO WEB LAB」と、実際に自動生成・公開しているLPの実例を紹介します。", "datePublished": "2026-09-21", "dateModified": "2026-09-21", "inLanguage": "ja", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://nao-web-lab.github.io/nao-fukugyou-lab/articles/11-ai-lp-generation.html"}, "author": {"@type": "Person", "name": "NAO"}, "publisher": {"@type": "Organization", "name": "NAOの副業ラボ"}}</script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="../index.html"><span class="mark">NAO</span>副業ラボ</a>
+      <nav class="main-nav" id="main-nav">
+        <ul>
+          <li><a href="../index.html">ホーム</a></li>
+          <li><a href="../index.html#categories">副業を探す</a></li>
+          <li><a href="../index.html#roadmap">初心者ロードマップ</a></li>
+          <li><a href="../articles.html" class="active">記事一覧</a></li>
+          <li><a href="../about.html">このサイトについて</a></li>
+        </ul>
+      </nav>
+      <button type="button" class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="main-nav" aria-label="メニューを開く">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+  <nav class="cat-scrollbar" aria-label="カテゴリから探す">
+    <div class="cat-track">
+      <div class="cat-track-inner">
+      <a href="../articles.html">📚 すべて</a>
+      <a href="../articles.html#cat-basic">📘 基礎知識</a>
+      <a href="../articles.html#cat-content">🎨 コンテンツ販売</a>
+      <a href="../articles.html#cat-affiliate">🔗 アフィリエイト</a>
+      <a href="../articles.html#cat-sns">📱 SNS運用</a>
+      <a href="../articles.html#cat-poikatsu">💰 ポイ活</a>
+      <a href="../articles.html#cat-crowd">💻 クラウドソーシング</a>
+      <a href="../articles.html#cat-sedori">📦 せどり・転売</a>
+      <a href="../articles.html#cat-skill">✨ スキル販売</a>
+      <a href="../articles.html#cat-tax">🧾 税金・確定申告</a>
+      <a href="../articles.html#cat-review">⭐ レビュー</a>
+      </div>
+      <div class="cat-track-inner" aria-hidden="true">
+      <a href="../articles.html" tabindex="-1">📚 すべて</a>
+      <a href="../articles.html#cat-basic" tabindex="-1">📘 基礎知識</a>
+      <a href="../articles.html#cat-content" tabindex="-1">🎨 コンテンツ販売</a>
+      <a href="../articles.html#cat-affiliate" tabindex="-1">🔗 アフィリエイト</a>
+      <a href="../articles.html#cat-sns" tabindex="-1">📱 SNS運用</a>
+      <a href="../articles.html#cat-poikatsu" tabindex="-1">💰 ポイ活</a>
+      <a href="../articles.html#cat-crowd" tabindex="-1">💻 クラウドソーシング</a>
+      <a href="../articles.html#cat-sedori" tabindex="-1">📦 せどり・転売</a>
+      <a href="../articles.html#cat-skill" tabindex="-1">✨ スキル販売</a>
+      <a href="../articles.html#cat-tax" tabindex="-1">🧾 税金・確定申告</a>
+      <a href="../articles.html#cat-review" tabindex="-1">⭐ レビュー</a>
+      </div>
+    </div>
+  </nav>
+  <article data-cat="affiliate">
+    <div class="article-header" data-cat="affiliate">
+      <div class="wrap">
+        <p class="breadcrumb"><a href="../index.html">ホーム</a> &gt; <a href="../articles.html">記事一覧</a> &gt; アフィリエイトLPをAIで自動生成する仕組み｜NAO WEB LABの取り組みを紹介</p>
+        <span class="cat">アフィリエイト</span>
+        <h1>アフィリエイトLPをAIで自動生成する仕組み｜NAO WEB LABの取り組みを紹介</h1>
+        <p class="article-meta">更新日：2026-09-21 ／ 執筆者：NAO</p>
+      </div>
+    </div>
+    <div class="article-body">
+
+  <p>アフィリエイトで成果を出すには、記事だけでなく商品・サービスを紹介する「LP（ランディングページ）」の出来が大きく影響します。ただ、LPを1本作るには企画・構成・デザイン・コーディング・SEO対策までやることが多く、特に初心者にとっては記事を書く以上に大変な作業です。この記事では、その負担をAIで減らす取り組みとして私が運営している「NAO WEB LAB」と、実際に自動生成・公開しているLPの実例を紹介します。</p>
+
+    <figure class="article-illust">
+    <div class="article-illust-media"><svg class="thumb-illust" viewBox="0 0 160 100" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true">
+      <ellipse cx="80" cy="90" rx="50" ry="6" fill="rgba(20,20,60,0.18)"/>
+      <rect x="40" y="24" width="72" height="56" rx="6" fill="#ffffff"/>
+      <rect x="40" y="24" width="72" height="14" rx="6" fill="#e4e1f2"/>
+      <circle cx="48" cy="31" r="2.6" fill="#c9b6ef"/><circle cx="56" cy="31" r="2.6" fill="#c9b6ef"/><circle cx="64" cy="31" r="2.6" fill="#c9b6ef"/>
+      <rect x="48" y="46" width="40" height="6" rx="3" fill="#d8cdf5"/>
+      <rect x="48" y="56" width="56" height="5" rx="2.5" fill="#ece9f7"/>
+      <rect x="48" y="65" width="30" height="8" rx="4" fill="#7b2ff7"/>
+      <g transform="translate(124,30)">
+        <circle r="17" fill="#ffffff" opacity="0.95"/>
+        <path d="M0 -8 L2.4 -2.6 L8 -2 L3.8 1.9 L5 7.4 L0 4.5 L-5 7.4 L-3.8 1.9 L-8 -2 L-2.4 -2.6 Z" fill="#7b2ff7"/>
+      </g>
+    </svg></div>
+    <figcaption class="article-illust-caption">LP制作の型をAIと組み合わせて、公開までのスピードを上げる</figcaption>
+  </figure>
+
+  <h2>この記事で分かること</h2>
+  <ul>
+    <li>アフィリエイトのLP制作がなぜ大変なのか</li>
+    <li>AIを使ってLP制作を効率化する「NAO WEB LAB」とはどんな取り組みか</li>
+    <li>実際に自動生成・公開されているLPの実例</li>
+    <li>この取り組みを副業に活かすときの注意点</li>
+  </ul>
+
+  <h2>LP制作がアフィリエイトの「壁」になりやすい理由</h2>
+  <p>アフィリエイトブログの記事は文章がメインなので、慣れれば1人でも書き進められます。一方でLPは、企画（誰に何を伝えるか）→構成（見出し・訴求の流れ）→デザイン→コーディング→SEO最適化→公開、という工程を経る必要があり、デザインやコーディングの知識がないと最初の1本を作るだけでもかなりの時間がかかります。「記事は書けるけど、LPまでは手が回らない」という初心者の方は多いはずです。</p>
+
+  <h2>AIでLP制作を効率化する取り組み「NAO WEB LAB」</h2>
+  <p>そこで私は、LP制作の一部をAIと組み合わせて進める取り組み「<strong>NAO WEB LAB</strong>」を運営しています。共通のテンプレートや構成パターンを土台にしながら、ジャンルごとの文章・構成づくりをAIで効率化することで、1本ずつゼロから手作業で作るよりもスピーディにLPを形にすることを目指しています。サイトでは、次のような点を意識して制作しています。</p>
+  <ul class="product-points">
+    <li>美容・転職・暮らし・副業など、ジャンルを問わず対応できる設計を目指している</li>
+    <li>多くのユーザーがスマートフォンで見ることを前提に、見やすさ・使いやすさを優先</li>
+    <li>title・meta description・見出し構造など、基本的なSEO設定を意識したページ構成</li>
+    <li>共通のテンプレートやパーツを土台にすることで、無駄のない効率的な制作を実現</li>
+  </ul>
+
+  <h2>実際に自動生成・公開しているLPの例</h2>
+  <p>NAO WEB LABには「公開LP一覧」というページがあり、これまでに自動生成・公開したLPが確認できます。ジャンルはかなり幅広く、たとえば次のようなLPを公開しています。</p>
+  <ul>
+    <li><strong>コンピ指数ゴールド馬券術</strong>：JRA全9,112レースを検証した馬連攻略法の紹介LP</li>
+    <li><strong>Quanis メルティングエッセンスマスク</strong>：美容液100%のフェイスマスクを紹介するLP</li>
+    <li><strong>介護リハビリセラピスト資格</strong>：通信・1日講座の学び方や費用を紹介するLP</li>
+    <li><strong>エネピ（enepi）</strong>：プロパンガス料金を無料で比較できるサービスの紹介LP</li>
+    <li><strong>フレッツ光／ひかり電話</strong>：光回線・IP電話サービスの料金や申し込みの流れを紹介するLP</li>
+    <li><strong>藤ノ井俊樹の「旬の厳選10銘柄」</strong>：四半期ごとの株式情報サービスを紹介するLP</li>
+  </ul>
+  <p>馬券攻略法から美容、資格、生活インフラ、投資情報まで、扱うジャンルが大きく異なっていても、同じ制作の型を使い回せているのがこの取り組みのポイントです。全ての実例は、NAO WEB LABの「公開LP一覧」ページでまとめて確認できます。</p>
+
+  <div class="service-feature" data-cat="affiliate">
+    <div class="service-feature-media">
+      <svg class="thumb-illust" viewBox="0 0 320 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true">
+        <rect x="30" y="24" width="130" height="112" rx="10" fill="#ffffff"/>
+        <rect x="30" y="24" width="130" height="22" rx="10" fill="#efeafc"/>
+        <rect x="42" y="56" width="90" height="8" rx="4" fill="#d8cdf5"/>
+        <rect x="42" y="72" width="106" height="6" rx="3" fill="#ece9f7"/>
+        <rect x="42" y="84" width="106" height="6" rx="3" fill="#ece9f7"/>
+        <rect x="42" y="108" width="60" height="16" rx="8" fill="#7b2ff7"/>
+        <rect x="170" y="24" width="120" height="112" rx="10" fill="#ffffff" opacity="0.96"/>
+        <rect x="170" y="24" width="120" height="22" rx="10" fill="#efeafc"/>
+        <rect x="182" y="56" width="80" height="8" rx="4" fill="#d8cdf5"/>
+        <rect x="182" y="72" width="96" height="6" rx="3" fill="#ece9f7"/>
+        <rect x="182" y="108" width="56" height="16" rx="8" fill="#7b2ff7"/>
+        <g fill="#ffd166">
+          <polygon points="0,-11 3.2,-3.4 11,-3.1 5,2.1 7.2,9.7 0,5.3 -7.2,9.7 -5,2.1 -11,-3.1 -3.2,-3.4" transform="translate(150,140) rotate(10)"/>
+        </g>
+      </svg>
+    </div>
+    <div class="service-feature-body">
+      <h4>NAO WEB LAB とは？</h4>
+      <p>Webサイト・LPを「もっと速く、もっと自由に」作ることを目指した制作ラボです。共通テンプレートを土台に、ジャンルを問わずスピーディーなサイト・LP制作を目指しています。現時点では美容・転職・引越し・アプリ・副業・AI・暮らし・商品サービスの各ジャンルへの対応を順次進めている段階で、LPテンプレートの公開も準備中です。</p>
+      <div class="service-feature-cta">
+        <a class="btn-service" href="https://nao-web-lab.github.io/nao-ai-blog/" rel="noopener" target="_blank">NAO WEB LABのサイトを見る</a>
+        <a class="btn-service" href="https://nao-web-lab.github.io/nao-ai-blog/lp/auto/" rel="noopener" target="_blank">公開LP一覧を見る</a>
+      </div>
+    </div>
+  </div>
+
+  <h2>この取り組みから分かるメリット</h2>
+  <ul class="product-points">
+    <li>企画〜構成の部分をAIと組み合わせることで、LP1本あたりの制作スピードを上げやすい</li>
+    <li>共通テンプレートを土台にしているため、ジャンルが変わっても同じ型で展開しやすい</li>
+    <li>title・meta description・見出し構造など、基本的なSEO設定を最初から型に組み込める</li>
+  </ul>
+
+  <h2>知っておきたい注意点</h2>
+  <p>AIを使えば何でも自動でできるわけではありません。実際に運用してみて感じている注意点もあわせて紹介します。</p>
+  <ul class="product-points">
+    <li>AIが作った文章・構成をそのまま公開するのではなく、事実関係や表現のチェックは必ず人の目で行う必要がある</li>
+    <li>紹介する商品・サービスの料金や仕様は変更されることがあるため、各LPでも「最新情報は公式サイトでご確認ください」といった案内を添えている</li>
+    <li>対応予定ジャンルの中には、まだテンプレートやページが公開されていないものもある（サイト内に「現時点で公開済みのページではありません」と明記されている）</li>
+    <li>NAO WEB LABは第三者が使える公開ツールではなく、私自身がLPを制作・公開するための取り組みという位置づけ</li>
+  </ul>
+
+  <div class="callout">
+    <span class="callout-title">まとめ</span>
+    LP制作は、アフィリエイトの中でも特に手間がかかる工程です。私はその負担を減らすために、AIと共通テンプレートを組み合わせた制作の仕組み「NAO WEB LAB」を運用し、実際に馬券攻略法から美容、資格、生活インフラ、投資情報まで幅広いジャンルのLPを自動生成・公開しています。すべてが自動化されているわけではなく、人によるチェックは欠かせませんが、「LP制作は時間がかかるから」と諦めていた方にとって、取り組み方のヒントになれば嬉しいです。
+  </div>
+
+    </div>
+  </article>
+  <div class="article-recirc reveal">
+    <div>
+      <a class="recirc-prev" href="03-affiliate-blog-start.html">&laquo; アフィリエイトブログの始め方完全ガイド（初心者向け）</a>
+      <div class="recirc-block">
+        <span class="recirc-label">次に読みたい記事</span>
+        <a class="recirc-next-card" href="02-content-sales-start.html">
+          <span class="recirc-next-title">コンテンツ販売で稼ぐ方法：note・BASE・Brain・Tipsの始め方</span>
+          <span class="recirc-arrow">&raquo;</span>
+        </a>
+      </div>
+      <div class="recirc-block">
+        <span class="recirc-label">あわせて読みたい記事</span>
+        <div class="related-grid">
+          <div class="card" data-cat="affiliate">
+            <div class="thumb"><svg class="thumb-illust" viewBox="0 0 160 100" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true">
+      <ellipse cx="80" cy="90" rx="50" ry="6" fill="rgba(70,20,0,0.2)"/>
+      <g fill="none" stroke="#ffffff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" transform="translate(66,54)">
+        <path d="M-8 8 L8 -8"/>
+        <path d="M-15 21a13 13 0 010-19l8-8"/>
+        <path d="M15 -21a13 13 0 010 19l-8 8"/>
+      </g>
+      <g transform="translate(122,32)">
+        <circle r="16" fill="#ffffff" opacity="0.95"/>
+        <path d="M-8 4 L-2 -3 L2 1 L9 -8" stroke="#e14e18" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M4 -8 L9 -8 L9 -3" stroke="#e14e18" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      </g>
+    </svg></div>
+            <div class="card-body">
+              <span class="cat">アフィリエイト</span>
+              <h3><a class="stretched-link" href="03-affiliate-blog-start.html">アフィリエイトブログの始め方完全ガイド（初心者向け）</a></h3>
+              <p>アフィリエイトブログを始めるために必要な準備、ASPの登録方法、記事の書き方の基本を初心者向けに順を追って解説します。</p>
+              <div class="card-meta">
+                <a class="readmore" href="03-affiliate-blog-start.html">続きを読む &raquo;</a>
+                <span class="date">2026.07.10</span>
+              </div>
+            </div>
+          </div>
+          <div class="card" data-cat="content">
+            <div class="thumb"><svg class="thumb-illust" viewBox="0 0 160 100" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true">
+      <ellipse cx="80" cy="90" rx="50" ry="6" fill="rgba(30,10,60,0.2)"/>
+      <rect x="38" y="24" width="58" height="48" rx="5" fill="#ffffff"/>
+      <rect x="46" y="32" width="42" height="5" rx="2.5" fill="#c9b6ef"/>
+      <rect x="46" y="42" width="42" height="5" rx="2.5" fill="#c9b6ef"/>
+      <rect x="46" y="52" width="26" height="5" rx="2.5" fill="#c9b6ef"/>
+      <rect x="46" y="62" width="34" height="5" rx="2.5" fill="#e2ddf0"/>
+      <g transform="translate(104,58)" fill="none" stroke="#ffffff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M0 0 h7 l3 22 h22"/>
+      </g>
+      <circle cx="117" cy="84" r="5" fill="#ffffff"/>
+      <circle cx="132" cy="84" r="5" fill="#ffffff"/>
+      <circle cx="128" cy="34" r="11" fill="#ffffff" opacity="0.9"/>
+      <text x="128" y="39" font-size="12" text-anchor="middle" fill="#7b2ff7" font-family="Arial, sans-serif" font-weight="700">&#165;</text>
+    </svg></div>
+            <div class="card-body">
+              <span class="cat">コンテンツ販売</span>
+              <h3><a class="stretched-link" href="02-content-sales-start.html">コンテンツ販売で稼ぐ方法：note・BASE・Brain・Tipsの始め方</a></h3>
+              <p>自分の知識や経験を商品にする「コンテンツ販売」の仕組みと、note・BASE・Brain・Tipsそれぞれの特徴・手数料・始め方を解説します。</p>
+              <div class="card-meta">
+                <a class="readmore" href="02-content-sales-start.html">続きを読む &raquo;</a>
+                <span class="date">2026.07.05</span>
+              </div>
+            </div>
+          </div>
+          <div class="card" data-cat="review">
+            <div class="thumb"><svg class="thumb-illust" viewBox="0 0 160 100" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true">
+      <ellipse cx="80" cy="90" rx="48" ry="6" fill="rgba(0,40,20,0.22)"/>
+      <path d="M36 30h78a9 9 0 019 9v26a9 9 0 01-9 9h-46l-16 13v-13h-16a9 9 0 01-9-9V39a9 9 0 019-9Z" fill="#ffffff"/>
+      <path d="M60 46 L63.2 52.4 L70.2 53.4 L65.1 58.4 L66.4 65.3 L60 61.9 L53.6 65.3 L54.9 58.4 L49.8 53.4 L56.8 52.4 Z" fill="#1f9c5e"/>
+      <path d="M80 46 L83.2 52.4 L90.2 53.4 L85.1 58.4 L86.4 65.3 L80 61.9 L73.6 65.3 L74.9 58.4 L69.8 53.4 L76.8 52.4 Z" fill="#1f9c5e"/>
+      <path d="M100 46 L103.2 52.4 L110.2 53.4 L105.1 58.4 L106.4 65.3 L100 61.9 L93.6 65.3 L94.9 58.4 L89.8 53.4 L96.8 52.4 Z" fill="#1f9c5e"/>
+    </svg></div>
+            <div class="card-body">
+              <span class="cat">レビュー</span>
+              <h3><a class="stretched-link" href="10-gadgets-for-side-work.html">副業がはかどるPC・ガジェット厳選5選</a></h3>
+              <p>在宅での副業作業を効率化するために役立つ、PC周辺機器・ガジェットを厳選して紹介します。</p>
+              <div class="card-meta">
+                <a class="readmore" href="10-gadgets-for-side-work.html">続きを読む &raquo;</a>
+                <span class="date">2026.08.18</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="footer-grid">
+        <div>
+          <h4>NAOの副業ラボ</h4>
+          <p>会社員の経験をもとに、初心者でも始めやすい副業の情報を発信しています。実際に調べて分かったことや、注意すべきポイントを中心にまとめています。</p>
+        </div>
+        <div>
+          <h4>サイトマップ</h4>
+          <ul>
+            <li><a href="../index.html">ホーム</a></li>
+            <li><a href="../articles.html">記事一覧</a></li>
+            <li><a href="../about.html">このサイトについて</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>カテゴリ</h4>
+          <div class="footer-social">
+            <a href="../articles.html#cat-basic">📘 基礎知識</a>
+            <a href="../articles.html#cat-content">🎨 コンテンツ販売</a>
+            <a href="../articles.html#cat-affiliate">🔗 アフィリエイト</a>
+            <a href="../articles.html#cat-sns">📱 SNS運用</a>
+            <a href="../articles.html#cat-poikatsu">💰 ポイ活</a>
+            <a href="../articles.html#cat-crowd">💻 クラウドソーシング</a>
+            <a href="../articles.html#cat-sedori">📦 せどり・転売</a>
+            <a href="../articles.html#cat-skill">✨ スキル販売</a>
+            <a href="../articles.html#cat-tax">🧾 税金・確定申告</a>
+            <a href="../articles.html#cat-review">⭐ レビュー</a>
+          </div>
+        </div>
+        <div>
+          <h4>お問い合わせ・規約</h4>
+          <ul>
+            <li><a href="../contact.html">お問い合わせ</a></li>
+            <li><a href="../privacy.html">プライバシーポリシー</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2026 NAOの副業ラボ</span>
+        <span class="footer-disclosure">当サイトはAmazonのアソシエイトとして、適格販売により収入を得ています。</span>
+      </div>
+    </div>
+  </footer>
+  <script src="../js/main.js" defer></script>
+</body>
+</html>
