@@ -2,7 +2,7 @@
 
 会社員でも無理なく始められる副業の情報をまとめた静的サイトです。GitHub Pagesで公開しています。
 
-- 公開URL: https://naofukugyou623-ux.github.io/nao-fukugyou-lab/
+- 公開URL: https://nao-web-lab.github.io/nao-fukugyou-lab/
 - 技術構成: 素のHTML / CSS（フレームワーク・ビルドツール不使用）
 
 ## 構成
