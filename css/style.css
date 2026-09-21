@@ -225,6 +225,40 @@ a:hover { text-decoration: underline; }
   .cat-scrollbar::-webkit-scrollbar { display: none; }
 }
 
+/* ---------- Auto-scrolling popular-article ticker (card size) ---------- */
+.popular-ticker {
+  overflow: hidden;
+  padding: 16px 0 22px;
+}
+.popular-ticker-row {
+  display: flex;
+  width: max-content;
+  animation: popularTicker 50s linear infinite;
+}
+.popular-ticker:hover .popular-ticker-row,
+.popular-ticker:focus-within .popular-ticker-row {
+  animation-play-state: paused;
+}
+.popular-ticker-group {
+  display: flex;
+  gap: 20px;
+  padding: 4px 14px;
+  flex: 0 0 auto;
+}
+.popular-ticker-card { flex: 0 0 260px; }
+@keyframes popularTicker {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@media (max-width: 560px) {
+  .popular-ticker-card { flex-basis: 220px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .popular-ticker-row { animation: none; }
+  .popular-ticker { overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  .popular-ticker::-webkit-scrollbar { display: none; }
+}
+
 /* ---------- Horizontal recommendation carousel ---------- */
 .promo-scroll {
   display: flex;
