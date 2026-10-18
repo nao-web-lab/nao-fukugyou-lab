@@ -72,35 +72,6 @@
     window.addEventListener("hashchange", filterFromHash);
   }
 
-  /* ---------- スクロールで軽くフェードイン ---------- */
-  /* IntersectionObserverが発火する前でもコンテンツが読めるよう、
-     早めのrootMarginと強制表示タイマーの二重の安全策を入れている。 */
-  function initScrollReveal() {
-    var targets = document.querySelectorAll(".reveal");
-    if (!targets.length) return;
-    function revealAll() {
-      targets.forEach(function (el) { el.classList.add("is-visible"); });
-    }
-    if (!("IntersectionObserver" in window)) {
-      revealAll();
-      return;
-    }
-    var io = new IntersectionObserver(
-      function (entries) {
-        entries.forEach(function (entry) {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("is-visible");
-            io.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0, rootMargin: "0px 0px 400px 0px" }
-    );
-    targets.forEach(function (el) { io.observe(el); });
-    // セーフティネット：何らかの理由で発火しなかった要素も必ず表示する
-    setTimeout(revealAll, 1500);
-  }
-
   /* ---------- 簡易副業診断 ---------- */
   var DIAGNOSIS_QUESTIONS = [
     {
@@ -323,7 +294,6 @@
   document.addEventListener("DOMContentLoaded", function () {
     initNavToggle();
     initFilterBar();
-    initScrollReveal();
     initDiagnosis();
   });
 })();
