@@ -222,7 +222,15 @@ def merge(old_items, new_items):
     limit = (datetime.now(JST).date() - timedelta(days=MAX_AGE_DAYS)).isoformat()
     items = [i for i in by_url.values() if i["date"] >= limit]
     items.sort(key=lambda i: (i["date"], i["url"]), reverse=True)
-    return items[:MAX_ITEMS]
+    # 同じ発表元・同じ日付で、名称が同じ（括弧の前まで一致する）見出しは1件にまとめる
+    seen, deduped = set(), []
+    for i in items:
+        key = (i["source"], i["date"], re.split(r"[ (（]", i["title"])[0])
+        if key in seen:
+            continue
+        seen.add(key)
+        deduped.append(i)
+    return deduped[:MAX_ITEMS]
 
 
 def esc(s):
@@ -245,6 +253,19 @@ def render_list(items, limit=None):
             f'<span class="news-topic">{esc(TOPIC_LABEL.get(i["topic"], "お知らせ"))}</span></span>\n'
             f'          </div>\n'
             f'        </li>'
+        )
+    return "\n".join(rows)
+
+
+def render_hero(items, limit=5):
+    rows = []
+    for i in items[:limit]:
+        rows.append(
+            f'          <li>\n'
+            f'            <time datetime="{esc(i["date"])}">{fmt(i["date"])}</time>\n'
+            f'            <a class="item" href="{esc(i["url"])}" target="_blank" rel="noopener">{esc(i["title"])}</a>\n'
+            f'            <span class="src">{esc(i["source"])}</span>\n'
+            f'          </li>'
         )
     return "\n".join(rows)
 
@@ -289,7 +310,7 @@ def main():
 
     replace_block("news.html", "NEWS-LIST", render_list(items))
     replace_block("news.html", "NEWS-UPDATED", f'<span class="news-updated-at">{esc(updated)}</span>')
-    replace_block("index.html", "NEWS-LATEST", render_list(items, 5))
+    replace_block("index.html", "NEWS-LATEST", render_hero(items, 5))
     log(f"items={len(items)} changed={changed} updated={updated}")
     return 0
 
