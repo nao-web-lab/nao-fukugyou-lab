@@ -31,10 +31,8 @@ sitemap.xml / robots.txt
 
 ## 公開前にやること（Amazonアソシエイト審査に向けて）
 
-1. **お問い合わせフォームの接続先を差し替える**
-   `contact.html` の `<form action="https://formspree.io/f/YOUR_FORM_ID">` を、
-   [Formspree](https://formspree.io/) などで自分のアカウントを作成して発行したフォームIDに置き換えてください。
-   （アカウント作成はご本人が行う必要があるため、プレースホルダのままにしています）
+1. ~~お問い合わせフォームの接続先を差し替える~~（対応済み）
+   `contact.html` は [Formspree](https://formspree.io/) のフォームに接続済みです。受信通知の宛先や迷惑メール設定は Formspree の管理画面で変更できます。
 
 2. **Amazonアソシエイトのトラッキングタグを差し替える**
    `articles/10-gadgets-for-side-work.html` 内のリンクにある `tag=YOUR_ASSOCIATE_ID-22` を、
