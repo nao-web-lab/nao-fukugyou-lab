@@ -72,6 +72,33 @@
     window.addEventListener("hashchange", filterFromHash);
   }
 
+  /* ---------- 副業ニュースの絞り込み ---------- */
+  function initNewsFilter() {
+    var bar = document.getElementById("news-filter");
+    var list = document.getElementById("news-list");
+    if (!bar || !list) return;
+    var items = list.querySelectorAll(".news-item");
+    var empty = document.getElementById("news-empty");
+    var pills = bar.querySelectorAll(".filter-pill");
+    bar.addEventListener("click", function (e) {
+      var btn = e.target.closest(".filter-pill");
+      if (!btn) return;
+      var filter = btn.getAttribute("data-filter");
+      pills.forEach(function (b) {
+        var on = b === btn;
+        b.classList.toggle("active", on);
+        b.setAttribute("aria-pressed", on ? "true" : "false");
+      });
+      var shown = 0;
+      items.forEach(function (li) {
+        var show = filter === "all" || li.getAttribute("data-topic") === filter;
+        li.classList.toggle("is-hidden", !show);
+        if (show) shown += 1;
+      });
+      if (empty) empty.hidden = shown !== 0;
+    });
+  }
+
   /* ---------- 簡易副業診断 ---------- */
   var DIAGNOSIS_QUESTIONS = [
     {
@@ -294,6 +321,7 @@
   document.addEventListener("DOMContentLoaded", function () {
     initNavToggle();
     initFilterBar();
+    initNewsFilter();
     initDiagnosis();
   });
 })();

@@ -1,0 +1,49 @@
+name: 副業ニュースの自動更新
+
+# 毎日 7:00 と 18:30（日本時間）に、国の機関の公開情報をリサーチして掲載を更新する。
+# 7:00  … 前日夕方以降の発表を、朝の閲覧時間に間に合わせる
+# 18:30 … その日の日中に出た発表を、当日中に掲載する
+# GitHub Actionsの定時実行は、混雑時に数十分遅れることがある。
+on:
+  schedule:
+    - cron: "0 22 * * *"   # 07:00 JST
+    - cron: "30 9 * * *"   # 18:30 JST
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+
+concurrency:
+  group: update-news
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: ニュースを取得して掲載を更新
+        run: python scripts/update_news.py
+
+      - name: 変更があればコミットして公開
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if [ -z "$(git status --porcelain data/news.json news.html index.html)" ]; then
+            echo "新しい発表はありません。"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/news.json news.html index.html
+          git commit -m "副業ニュースを自動更新 ($(TZ=Asia/Tokyo date '+%Y-%m-%d %H:%M'))"
+          git pull --rebase origin main
+          git push origin HEAD:main
+          gh api -X POST "repos/${GITHUB_REPOSITORY}/pages/builds" || true

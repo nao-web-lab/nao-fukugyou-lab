@@ -1084,6 +1084,34 @@ section { padding: 56px 0; }
 .recirc-next-card .recirc-next-title { font-weight: 700; font-size: 1rem; }
 .recirc-next-card .recirc-arrow { font-weight: 700; color: var(--seal); flex-shrink: 0; }
 
+/* ---------- 副業ニュース ---------- */
+.news-list { list-style: none; margin: 0; padding: 0; border-top: 2px solid var(--ink); }
+.news-item {
+  display: grid;
+  grid-template-columns: 6.4rem minmax(0, 1fr);
+  gap: 4px 16px;
+  padding: 15px 4px;
+  border-bottom: 1px solid var(--rule);
+}
+.news-item time {
+  font-weight: 700;
+  font-size: 0.86rem;
+  color: var(--ink-soft);
+  font-variant-numeric: tabular-nums;
+  padding-top: 3px;
+}
+.news-main a { font-weight: 700; color: var(--ink); text-decoration: none; line-height: 1.7; }
+.news-main a:hover { text-decoration: underline; text-underline-offset: 3px; }
+.news-meta { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 4px; font-size: 0.78rem; }
+.news-source { color: var(--ink-soft); }
+.news-topic { border: 1px solid var(--ink-faint); color: var(--ink-soft); padding: 0 8px; border-radius: 2px; line-height: 1.7; }
+.news-item[data-topic="caution"] .news-topic { color: var(--seal-dark); border-color: var(--seal-dark); }
+.news-item.is-hidden { display: none; }
+.news-note { font-size: 0.88rem; color: var(--ink-soft); }
+.news-empty { padding: 18px 4px; color: var(--ink-soft); border-bottom: 1px solid var(--rule); }
+.news-search-links { padding-left: 1.2em; }
+#news .news-list { background: var(--paper); padding: 0 16px; }
+
 /* ---------- Responsive ---------- */
 @media (max-width: 960px) {
   .hero-grid { grid-template-columns: 1fr; gap: 48px; }
@@ -1106,7 +1134,7 @@ section { padding: 56px 0; }
     visibility: hidden;
     transition: max-height .25s ease, visibility 0s linear .25s;
   }
-  .main-nav.is-open { max-height: 340px; visibility: visible; transition-delay: 0s; }
+  .main-nav.is-open { max-height: 440px; visibility: visible; transition-delay: 0s; }
   .main-nav ul { flex-direction: column; align-items: stretch; gap: 0; padding: 6px 20px 14px; }
   .main-nav li { width: 100%; }
   .main-nav a { display: block; padding: 13px 0; border-bottom: 1px solid var(--rule); }
@@ -1123,6 +1151,7 @@ section { padding: 56px 0; }
 }
 @media (max-width: 560px) {
   .roadmap-grid, .explore-grid { grid-template-columns: 1fr; }
+  .news-item { grid-template-columns: 1fr; }
   .hero { padding: 44px 0 56px; }
   .ledger { padding: 22px 18px 8px; }
   .ledger-list li { grid-template-columns: 4.6rem minmax(0, 1fr); }

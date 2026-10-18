@@ -15,7 +15,11 @@ about.html           運営者情報・サイトについて
 contact.html          お問い合わせ（フォーム）
 privacy.html          プライバシーポリシー（Amazonアソシエイト表記・Cookie/GA表記を含む）
 css/style.css         共通スタイル
-js/main.js            共通スクリプト（メニュー・カテゴリ絞り込み・簡易診断）
+js/main.js            共通スクリプト（メニュー・カテゴリ絞り込み・簡易診断・ニュース絞り込み）
+news.html            副業ニュース（自動更新。手で編集しない）
+data/news.json        副業ニュースの蓄積データ（自動更新）
+scripts/update_news.py  ニュース取得スクリプト（標準ライブラリのみ）
+.github/workflows/update-news.yml  毎日の自動実行
 assets/*.png          各サービスの公式サイト・ストア画面のスクリーンショット
 assets/ai/*.webp      記事冒頭のイメージ画像（AI生成。顔・文字・ロゴを含まないもの）
 assets/og/*.jpg       SNS共有用のOGP画像（1200x630）
@@ -29,6 +33,14 @@ sitemap.xml / robots.txt
 - アフィリエイト・紹介リンクがある記事は、冒頭の `pr-note`（PR表記）と末尾の `disclosure-note` を入れ、リンクに `rel="sponsored"` を付ける
 - スクリーンショットや画像は `width` / `height` 属性を付ける（レイアウトのずれ防止）
 - 公式情報で確かめて記事を直したときは、トップ（`index.html`）の「検証ログ」に1行追加する（日付・項目・出典・反映した記事）。実際に確認していない項目は載せない
+
+## 副業ニュースの自動更新
+
+- 毎日 7:00 と 18:30（日本時間）に GitHub Actions が `scripts/update_news.py` を実行し、国民生活センター・消費者庁・金融庁・厚生労働省・国税庁の公開情報から副業に関係する見出しを集めて、`news.html` とトップの新着欄、`data/news.json` を更新します。変更があるときだけコミットされ、そのまま公開されます。
+- 掲載するのは見出し・日付・出典・公式ページへのリンクだけです（本文の転載や要約はしません）。
+- 取得元や抽出キーワードを変えるときは、`scripts/update_news.py` の `SOURCES` と `TOPICS` を編集します。ローカルでの確認は `python scripts/update_news.py`。
+- 手動で今すぐ更新したいときは、GitHub の Actions タブから「副業ニュースの自動更新」を Run workflow します。
+- 公開リポジトリは60日間コミットがないと定時実行が止まります。ニュースの更新コミットが活動として数えられるため通常は止まりませんが、止まった場合は Actions タブで再開してください。
 
 ## 公開前にやること（Amazonアソシエイト審査に向けて）
 
