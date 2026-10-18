@@ -46,8 +46,7 @@ sitemap.xml / robots.txt
 1. ~~お問い合わせフォームの接続先を差し替える~~（対応済み）
    `contact.html` は [Formspree](https://formspree.io/) のフォームに接続済みです。受信通知の宛先や迷惑メール設定は Formspree の管理画面で変更できます。
 
-2. **Amazonアソシエイトのトラッキングタグを差し替える**
-   `articles/10-gadgets-for-side-work.html` 内のリンクにある `tag=YOUR_ASSOCIATE_ID-22` を、
-   Amazonアソシエイトに登録して発行された自分のトラッキングIDに置き換えてください。
+2. ~~Amazonアソシエイトのトラッキングタグを差し替える~~（対応済み）
+   `articles/10-gadgets-for-side-work.html` のAmazonリンクは、トラッキングID `naotomato06-22` で設定済みです。
 
 3. 内容を一通り読み、事実関係やご自身の経験と齟齬がないか確認してください。
