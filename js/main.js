@@ -17,6 +17,13 @@
         toggle.setAttribute("aria-expanded", "false");
       });
     });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && nav.classList.contains("is-open")) {
+        nav.classList.remove("is-open");
+        toggle.setAttribute("aria-expanded", "false");
+        toggle.focus();
+      }
+    });
   }
 
   /* ---------- 記事一覧のカテゴリ絞り込み ---------- */
@@ -24,19 +31,45 @@
     var bar = document.getElementById("filter-bar");
     var cards = document.querySelectorAll("#card-grid .card");
     if (!bar) return;
-    bar.addEventListener("click", function (e) {
-      var btn = e.target.closest(".filter-pill");
-      if (!btn) return;
-      bar.querySelectorAll(".filter-pill").forEach(function (b) {
-        b.classList.remove("active");
+    var pills = bar.querySelectorAll(".filter-pill");
+
+    function applyFilter(filter) {
+      pills.forEach(function (b) {
+        var on = b.getAttribute("data-filter") === filter;
+        b.classList.toggle("active", on);
+        b.setAttribute("aria-pressed", on ? "true" : "false");
       });
-      btn.classList.add("active");
-      var filter = btn.getAttribute("data-filter");
       cards.forEach(function (card) {
         var show = filter === "all" || card.getAttribute("data-cat") === filter;
         card.classList.toggle("is-hidden", !show);
       });
+    }
+
+    pills.forEach(function (b) {
+      b.setAttribute("aria-pressed", b.classList.contains("active") ? "true" : "false");
     });
+
+    bar.addEventListener("click", function (e) {
+      var btn = e.target.closest(".filter-pill");
+      if (!btn) return;
+      applyFilter(btn.getAttribute("data-filter"));
+    });
+
+    // #cat-xxx のリンクで開いたときは、そのカテゴリで絞り込んで表示する
+    function filterFromHash() {
+      var m = /^#cat-([a-z]+)$/.exec(window.location.hash);
+      if (!m) return;
+      var exists = Array.prototype.some.call(pills, function (b) {
+        return b.getAttribute("data-filter") === m[1];
+      });
+      if (!exists) return;
+      applyFilter(m[1]);
+      window.requestAnimationFrame(function () {
+        bar.scrollIntoView({ block: "center" });
+      });
+    }
+    filterFromHash();
+    window.addEventListener("hashchange", filterFromHash);
   }
 
   /* ---------- スクロールで軽くフェードイン ---------- */
@@ -179,8 +212,10 @@
       cost: "数千円〜（仕入れ資金）",
       timeline: "早ければ最初の販売まで数週間",
       firstStep: "まずは身近な不用品から、販売の流れを体験してみましょう。",
-      link: "articles/07-sedori-basics.html",
-      linkLabel: "せどり・転売の注意点を見る",
+      link: "articles/17-furima-fuyouhin.html",
+      linkLabel: "不用品販売（メルカリ・ラクマ）を見る",
+      link2: "articles/07-sedori-basics.html",
+      link2Label: "せどり・転売の注意点を見る",
     },
     skill: {
       title: "スキル販売",
@@ -204,10 +239,13 @@
     var current = 0;
     var scores = {};
 
-    function renderQuestion() {
+    qWrap.setAttribute("aria-live", "polite");
+    resultWrap.setAttribute("aria-live", "polite");
+
+    function renderQuestion(moveFocus) {
       var q = DIAGNOSIS_QUESTIONS[current];
       progressEl.textContent = "Q" + (current + 1) + " / " + DIAGNOSIS_QUESTIONS.length;
-      var html = '<p class="diagnosis-q">' + q.q + "</p>" + '<div class="diagnosis-options">';
+      var html = '<p class="diagnosis-q" tabindex="-1">' + q.q + "</p>" + '<div class="diagnosis-options">';
       q.options.forEach(function (opt, i) {
         html +=
           '<button type="button" class="diagnosis-option" data-index="' +
@@ -218,6 +256,10 @@
       });
       html += "</div>";
       qWrap.innerHTML = html;
+      if (moveFocus) {
+        var qEl = qWrap.querySelector(".diagnosis-q");
+        if (qEl) qEl.focus();
+      }
       qWrap.querySelectorAll(".diagnosis-option").forEach(function (btn) {
         btn.addEventListener("click", function () {
           var opt = q.options[parseInt(btn.getAttribute("data-index"), 10)];
@@ -226,7 +268,7 @@
           });
           current += 1;
           if (current < DIAGNOSIS_QUESTIONS.length) {
-            renderQuestion();
+            renderQuestion(true);
           } else {
             renderResult();
           }
@@ -249,7 +291,7 @@
       resultWrap.hidden = false;
       resultWrap.innerHTML =
         '<p class="diagnosis-result-label">あなたに向いている副業は…</p>' +
-        "<h3>" + r.title + "</h3>" +
+        '<h3 tabindex="-1">' + r.title + "</h3>" +
         "<p>" + r.reason + "</p>" +
         '<dl class="diagnosis-meta">' +
         "<dt>難易度</dt><dd>" + r.difficulty + "</dd>" +
@@ -257,8 +299,11 @@
         "<dt>収益化までの目安</dt><dd>" + r.timeline + "</dd>" +
         "<dt>最初にやること</dt><dd>" + r.firstStep + "</dd>" +
         "</dl>" +
-        '<a class="btn btn-primary" href="' + r.link + '">' + r.linkLabel + " &raquo;</a>";
+        '<a class="btn btn-primary" href="' + r.link + '">' + r.linkLabel + " &raquo;</a>" +
+        (r.link2 ? ' <a class="btn btn-outline" href="' + r.link2 + '">' + r.link2Label + " &raquo;</a>" : "");
       restartBtn.hidden = false;
+      var h = resultWrap.querySelector("h3");
+      if (h) h.focus();
     }
 
     restartBtn.addEventListener("click", function () {

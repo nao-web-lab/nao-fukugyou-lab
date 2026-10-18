@@ -10,13 +10,24 @@
 ```
 index.html          トップページ
 articles.html        記事一覧
-articles/*.html       各記事（10本）
+articles/*.html       各記事（19本）
 about.html           運営者情報・サイトについて
 contact.html          お問い合わせ（フォーム）
 privacy.html          プライバシーポリシー（Amazonアソシエイト表記・Cookie/GA表記を含む）
 css/style.css         共通スタイル
+js/main.js            共通スクリプト（メニュー・カテゴリ絞り込み・簡易診断）
+assets/*.png          各サービスの公式サイト・ストア画面のスクリーンショット
+assets/ai/*.webp      記事冒頭のイメージ画像（AI生成。顔・文字・ロゴを含まないもの）
+assets/og/*.jpg       SNS共有用のOGP画像（1200x630）
 sitemap.xml / robots.txt
 ```
+
+## 記事を追加するときのチェック
+
+- `articles.html` のカード、`sitemap.xml`、関連記事の内部リンクを追加する
+- 手数料・制度・数値は公式サイトで確認し、確認日と出典リンクを本文に入れる
+- アフィリエイト・紹介リンクがある記事は、冒頭の `pr-note`（PR表記）と末尾の `disclosure-note` を入れ、リンクに `rel="sponsored"` を付ける
+- スクリーンショットや画像は `width` / `height` 属性を付ける（レイアウトのずれ防止）
 
 ## 公開前にやること（Amazonアソシエイト審査に向けて）
 
