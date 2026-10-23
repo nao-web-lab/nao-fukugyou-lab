@@ -1,6 +1,20 @@
 {
-  "updated": "2026-10-22 23:35",
+  "updated": "2026-10-23 23:19",
   "items": [
+    {
+      "date": "2026-10-23",
+      "title": "その他,つみたて投資枠対象商品届出一覧及びつみたて投資枠対象商品の概要を更新しました。",
+      "url": "https://www.fsa.go.jp/policy/nisa2/products/index.html",
+      "source": "金融庁",
+      "topic": "money"
+    },
+    {
+      "date": "2026-10-23",
+      "title": "その他,無登録で金融商品取引業を行う者の名称等について更新しました。",
+      "url": "https://www.fsa.go.jp/ordinary/chuui/mutouroku.html",
+      "source": "金融庁",
+      "topic": "caution"
+    },
     {
       "date": "2026-10-22",
       "title": "採用,職員を募集しています。（資産運用会社等の監督等に従事する職員）",
@@ -42,13 +56,6 @@
       "url": "https://www.caa.go.jp/notice/entry/047783/",
       "source": "消費者庁",
       "topic": "other"
-    },
-    {
-      "date": "2026-10-15",
-      "title": "その他,つみたて投資枠対象商品届出一覧及びつみたて投資枠対象商品の概要を更新しました。",
-      "url": "https://www.fsa.go.jp/policy/nisa2/products/index.html",
-      "source": "金融庁",
-      "topic": "money"
     },
     {
       "date": "2026-10-13",
