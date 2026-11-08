@@ -10,7 +10,7 @@
 ```
 index.html          トップページ
 articles.html        記事一覧
-articles/*.html       各記事（20本）
+articles/*.html       各記事（21本）
 about.html           運営者情報・サイトについて
 contact.html          お問い合わせ（フォーム）
 privacy.html          プライバシーポリシー（Amazonアソシエイト表記・Cookie/GA表記を含む）
